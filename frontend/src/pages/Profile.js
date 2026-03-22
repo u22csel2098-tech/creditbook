@@ -3,7 +3,7 @@ import axios from 'axios';
 import { api } from '../utils/offlineDB';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
-import { avatarColor, avatarLetter } from '../utils/helpers';
+import { avatarLetter } from '../utils/helpers';
 
 export default function Profile() {
   const { user, logout, updateUser } = useAuth();

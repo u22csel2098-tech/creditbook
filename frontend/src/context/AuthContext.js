@@ -2,6 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { precacheAll, flushQueue } from '../utils/offlineDB';
 
+// Set backend URL — uses env variable or falls back to Render URL
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://creditbook-4jd8.onrender.com';
+
 const Ctx = createContext(null);
 export const useAuth = () => useContext(Ctx);
 
@@ -14,7 +17,7 @@ export function AuthProvider({ children }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    axios.defaults.baseURL = 'https://creditbook-4jd8.onrender.com';
+    if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     else delete axios.defaults.headers.common['Authorization'];
     setReady(true);
 
@@ -36,14 +39,12 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Login with email + password
   const login = async (email, password) => {
     const r = await axios.post('/api/auth/login', { email, password });
     persist(r.data.token, r.data.user);
     return r.data;
   };
 
-  // Register with name + email + phone + password + business info
   const register = async (data) => {
     const r = await axios.post('/api/auth/register', data);
     persist(r.data.token, r.data.user);

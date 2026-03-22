@@ -56,9 +56,9 @@ export default function Register() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(160deg,#1a4fd6 0%,#0e2a8a 100%)' }}>
       {/* Header */}
       <div style={{ textAlign: 'center', color: 'white', padding: '32px 24px 24px' }}>
-        <div style={{ fontSize: 46, marginBottom: 6 }}>💳</div>
+        <div style={{ fontSize: 46, marginBottom: 6 }}></div>
         <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0 }}>CreditBook</h1>
-        <p style={{ opacity: .7, marginTop: 6, fontSize: 13 }}>Your Credit, Your Control</p>
+        <p style={{ opacity: .7, marginTop: 6, fontSize: 13 }}>Digital Ledger App<</p>
       </div>
 
       {/* Card */}

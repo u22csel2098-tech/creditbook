@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { api } from '../../utils/offlineDB';
 import toast from 'react-hot-toast';
-import { fmt, fmtDateTime, avatarColor, avatarLetter } from '../../utils/helpers';
+import { fmt, fmtDateTime, avatarLetter } from '../../utils/helpers';
 
 export default function PartyDetail() {
   const { id } = useParams();

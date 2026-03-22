@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { precacheAll, flushQueue } from '../utils/offlineDB';
 
-// Set backend URL — uses env variable or falls back to Render URL
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://creditbook-4jd8.onrender.com';
 
 const Ctx = createContext(null);
@@ -20,8 +19,6 @@ export function AuthProvider({ children }) {
     if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     else delete axios.defaults.headers.common['Authorization'];
     setReady(true);
-
-    // When app starts online and user is logged in, flush any pending queue + pre-cache
     if (token && navigator.onLine) {
       flushQueue(axios).catch(() => {});
       precacheAll(axios).catch(() => {});
@@ -33,7 +30,6 @@ export function AuthProvider({ children }) {
     localStorage.setItem('cb_tok', tok);
     localStorage.setItem('cb_usr', JSON.stringify(usr));
     axios.defaults.headers.common['Authorization'] = `Bearer ${tok}`;
-    // Pre-cache all data right after login for offline use
     if (navigator.onLine) {
       setTimeout(() => precacheAll(axios).catch(() => {}), 500);
     }

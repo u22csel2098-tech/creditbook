@@ -1,11 +1,9 @@
-const express = require('express');
+const express  = require('express');
 const mongoose = require('mongoose');
-const morgan   = require('morgan');
 require('dotenv').config();
 
 const app = express();
 
-// CORS — manual headers, works with any origin
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -17,7 +15,6 @@ app.use((req, res, next) => {
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
 
 app.use('/api/auth',         require('./routes/authRoutes'));
 app.use('/api/parties',      require('./routes/partyRoutes'));
@@ -27,9 +24,14 @@ app.use('/api/attendance',   require('./routes/attendanceRoutes'));
 app.use('/api/dashboard',    require('./routes/dashboardRoutes'));
 app.use('/api/chat',         require('./routes/chatRoutes'));
 
-app.get('/api/health', (_req, res) => res.json({ status: 'ok', message: 'CreditBook API running', time: new Date() }));
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok', message: 'CreditBook API running', time: new Date() });
+});
 
-app.use((req, res) => res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` }));
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
+});
+
 app.use((err, _req, res, _next) => {
   console.error(err.stack);
   res.status(500).json({ success: false, message: err.message || 'Server Error' });

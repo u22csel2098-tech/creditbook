@@ -56,9 +56,6 @@ export const cacheGet = (cacheKey) => {
 // ── ID generator (for optimistic offline records) ─────────────────────────────
 export const offlineId = () => `offline_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
 
-// ── Per-collection localStorage stores ────────────────────────────────────────
-const COLLECTIONS = ['parties', 'transactions', 'staff', 'attendance', 'dashboard'];
-
 export const store = {
   get: (col) => lsGet(col, []),
   set: (col, data) => lsSet(col, data),
@@ -448,10 +445,10 @@ function buildFromStore(url, config) {
 export const precacheAll = async (axiosInstance) => {
   if (!isOnline()) return;
   try {
-    const [pRes, sRes, attRes] = await Promise.all([
+    const [pRes, sRes ] = await Promise.all([
       axiosInstance.get('/api/parties'),
       axiosInstance.get('/api/staff'),
-      axiosInstance.get('/api/attendance/summary/today').catch(() => null),
+    
     ]);
     if (pRes.data?.data) store.set('parties', pRes.data.data);
     if (sRes.data?.data) store.set('staff', sRes.data.data);

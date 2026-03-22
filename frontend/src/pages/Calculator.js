@@ -8,8 +8,6 @@ const BUTTONS = [
   ['0', '.', '⌫', '='],
 ];
 
-const OP_MAP = { '÷':'/', '×':'*', '−':'-', '+':'+' };
-
 export default function Calculator() {
   const [display, setDisplay]   = useState('0');
   const [expr,    setExpr]      = useState('');
@@ -103,9 +101,7 @@ export default function Calculator() {
     if (['±','%'].includes(btn)) return 'calc-btn action';
     return 'calc-btn';
   };
-
-  const getSpan = (btn) => btn === '0' ? 2 : 1;
-
+  
   // Build flat grid with span for 0
   const flatBtns = [];
   BUTTONS.forEach(row => row.forEach(btn => flatBtns.push(btn)));

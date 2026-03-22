@@ -1,0 +1,89 @@
+%%{init: {'theme': 'base', 'er': {'diagramPadding': 40}}}%%
+erDiagram
+    USER {
+        ObjectId _id PK
+        string   name
+        string   email  UK
+        string   phone
+        string   password
+        string   businessName
+        string   businessType
+        string   currency
+        boolean  isActive
+        Date     lastLogin
+        Date     createdAt
+        Date     updatedAt
+    }
+
+    PARTY {
+        ObjectId _id      PK
+        ObjectId userId   FK
+        string   name
+        string   phone
+        string   email
+        string   address
+        string   type
+        number   balance
+        string   notes
+        boolean  isActive
+        Date     createdAt
+        Date     updatedAt
+    }
+
+    TRANSACTION {
+        ObjectId _id          PK
+        ObjectId userId       FK
+        ObjectId partyId      FK
+        string   type
+        number   amount
+        string   description
+        Date     date
+        number   balanceAfter
+        Date     createdAt
+        Date     updatedAt
+    }
+
+    STAFF {
+        ObjectId _id            PK
+        ObjectId userId         FK
+        string   name
+        string   phone
+        string   role
+        string   salaryType
+        number   salary
+        Date     joiningDate
+        number   advanceBalance
+        number   totalPaid
+        boolean  isActive
+        string   notes
+        Date     createdAt
+        Date     updatedAt
+    }
+
+    PAYMENT {
+        ObjectId _id         PK
+        number   amount
+        string   type
+        string   description
+        Date     date
+    }
+
+    ATTENDANCE {
+        ObjectId _id           PK
+        ObjectId userId        FK
+        ObjectId staffId       FK
+        Date     date
+        string   status
+        string   note
+        number   overtimeHours
+        Date     createdAt
+        Date     updatedAt
+    }
+
+    USER       ||--o{ PARTY       : "owns"
+    USER       ||--o{ TRANSACTION : "records"
+    USER       ||--o{ STAFF       : "manages"
+    USER       ||--o{ ATTENDANCE  : "tracks"
+    PARTY      ||--o{ TRANSACTION : "involved in"
+    STAFF      ||--o{ ATTENDANCE  : "has"
+    STAFF      ||--o{ PAYMENT     : "receives"

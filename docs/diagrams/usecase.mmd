@@ -1,0 +1,90 @@
+%%{init: {'theme': 'base'}}%%
+flowchart LR
+    User(("👤 Business Owner\n(Authenticated User)"))
+    Admin(("⚙️ System\n(Auto / Backend)"))
+
+    subgraph Auth["Authentication"]
+        UC1["Register Account"]
+        UC2["Login"]
+        UC3["Update Profile"]
+        UC4["Change Password"]
+    end
+
+    subgraph Parties["Party Management"]
+        UC5["Add Customer"]
+        UC6["Add Supplier"]
+        UC7["View Party Details"]
+        UC8["Edit / Delete Party"]
+        UC9["View Balance Summary"]
+    end
+
+    subgraph Transactions["Transaction Management"]
+        UC10["Record 'You Gave'"]
+        UC11["Record 'You Got'"]
+        UC12["View Transaction History"]
+        UC13["Delete Transaction"]
+    end
+
+    subgraph StaffMgmt["Staff Management"]
+        UC14["Add Staff Member"]
+        UC15["Edit Staff Details"]
+        UC16["Record Salary Payment"]
+        UC17["View Salary Due Summary"]
+    end
+
+    subgraph Attendance["Attendance Tracking"]
+        UC18["Mark Attendance (Single)"]
+        UC19["Mark Attendance (Bulk)"]
+        UC20["View Attendance History"]
+        UC21["View Today's Summary"]
+    end
+
+    subgraph Reports["Reports & Dashboard"]
+        UC22["View Dashboard Overview"]
+        UC23["View Cashflow Report"]
+        UC24["View Bar & Pie Charts"]
+        UC25["Use GST Calculator"]
+    end
+
+    subgraph AI["AI Assistant"]
+        UC26["Chat with CreditBot AI"]
+    end
+
+    subgraph System["System (Auto)"]
+        UC27["Hash Passwords (bcrypt)"]
+        UC28["Generate JWT Token"]
+        UC29["Compute Running Balance"]
+        UC30["Cache Data (Service Worker)"]
+    end
+
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC4
+    User --> UC5
+    User --> UC6
+    User --> UC7
+    User --> UC8
+    User --> UC9
+    User --> UC10
+    User --> UC11
+    User --> UC12
+    User --> UC13
+    User --> UC14
+    User --> UC15
+    User --> UC16
+    User --> UC17
+    User --> UC18
+    User --> UC19
+    User --> UC20
+    User --> UC21
+    User --> UC22
+    User --> UC23
+    User --> UC24
+    User --> UC25
+    User --> UC26
+
+    Admin --> UC27
+    Admin --> UC28
+    Admin --> UC29
+    Admin --> UC30

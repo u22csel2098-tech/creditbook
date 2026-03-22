@@ -1,0 +1,54 @@
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#4f46e5', 'edgeLabelBackground': '#fff'}}}%%
+graph TD
+    subgraph Client["🌐 Client Layer"]
+        PWA["React 18 PWA\n(Frontend — localhost:3000)"]
+        SW["Service Worker\n(Offline Cache)"]
+        Manifest["manifest.json\n(Install Prompt)"]
+    end
+
+    subgraph API["⚙️ API Layer — Express.js (localhost:5000)"]
+        Auth["POST /api/auth\n(register / login / me)"]
+        Parties["GET|POST|PUT|DELETE\n/api/parties"]
+        Txn["GET|POST|DELETE\n/api/transactions"]
+        Staff["GET|POST|PUT|DELETE\n/api/staff"]
+        Attend["POST|GET\n/api/attendance"]
+        Dash["GET /api/dashboard\n/api/dashboard/cashflow"]
+        Chat["POST /api/chat"]
+        Health["GET /api/health"]
+        Protect["🔒 JWT Auth Middleware\n(protect)"]
+    end
+
+    subgraph DB["🗄️ Database Layer — MongoDB Atlas"]
+        UserCol["users collection"]
+        PartyCol["parties collection"]
+        TxnCol["transactions collection"]
+        StaffCol["staff collection"]
+        AttendCol["attendance collection"]
+    end
+
+    subgraph External["☁️ External Services"]
+        Groq["Groq API\n(Llama 3.3 70B)"]
+    end
+
+    PWA -->|"Axios HTTP + JWT"| Protect
+    SW --> PWA
+    Manifest --> PWA
+    Protect --> Auth
+    Protect --> Parties
+    Protect --> Txn
+    Protect --> Staff
+    Protect --> Attend
+    Protect --> Dash
+    Protect --> Chat
+    Health -->|"public"| PWA
+
+    Auth --> UserCol
+    Parties --> PartyCol
+    Txn --> TxnCol
+    Txn --> PartyCol
+    Staff --> StaffCol
+    Attend --> AttendCol
+    Dash --> TxnCol
+    Dash --> PartyCol
+    Dash --> StaffCol
+    Chat -->|"HTTPS REST"| Groq

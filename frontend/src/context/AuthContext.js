@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.defaults.baseURL = 'https://creditbook-4jd8.onrender.com';
     else delete axios.defaults.headers.common['Authorization'];
     setReady(true);
 

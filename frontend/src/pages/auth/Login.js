@@ -35,9 +35,9 @@ export default function Login() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(160deg,#1a4fd6 0%,#0e2a8a 100%)' }}>
       {/* Logo area */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white', padding: '40px 24px 32px' }}>
-        <div style={{ fontSize: 56, marginBottom: 10 }}>💳</div>
+        <div style={{ fontSize: 56, marginBottom: 10 }}></div>
         <h1 style={{ fontSize: 32, fontWeight: 800, margin: 0 }}>CreditBook</h1>
-        <p style={{ opacity: .7, marginTop: 8, fontSize: 14 }}>Your Credit, Your Control</p>
+        <p style={{ opacity: .7, marginTop: 8, fontSize: 14 }}>Digital Ledger App</p>
       </div>
 
       {/* Login card — slides up from bottom */}

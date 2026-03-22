@@ -58,7 +58,7 @@ export default function Register() {
       <div style={{ textAlign: 'center', color: 'white', padding: '32px 24px 24px' }}>
         <div style={{ fontSize: 46, marginBottom: 6 }}></div>
         <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0 }}>CreditBook</h1>
-        <p style={{ opacity: .7, marginTop: 6, fontSize: 13 }}>Digital Ledger App<</p>
+        <p style={{ opacity: .7, marginTop: 6, fontSize: 13 }}>Digital Ledger App</p>
       </div>
 
       {/* Card */}

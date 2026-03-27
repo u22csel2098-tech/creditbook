@@ -29,7 +29,8 @@ export default function AddParty() {
     setLoading(true);
     try {
       const r = await api.post(axios, '/api/parties', form);
-      toast.success(`${form.type.charAt(0).toUpperCase()+form.type.slice(1)} added!`);
+      const label = form.type ? form.type.charAt(0).toUpperCase() + form.type.slice(1) : 'Party';
+      toast.success(`${label} added!`);
       navigate(`/parties/${r.data.data._id}`, { replace:true });
     } catch(err) { toast.error(err.response?.data?.message||'Failed'); }
     finally { setLoading(false); }

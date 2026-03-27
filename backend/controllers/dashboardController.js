@@ -18,13 +18,16 @@ const getDashboard = async (req, res) => {
       Attendance.find({ userId: uid, date: { $gte: todayStart, $lte: new Date(todayStart.getTime()+86400000) } }).lean()
     ]);
 
-    const customers = parties.filter(p => p.type === 'customer');
-    const suppliers = parties.filter(p => p.type === 'supplier');
-
-    const customerToGet  = customers.filter(p => p.balance > 0).reduce((s,p) => s+p.balance, 0);
-    const customerToGive = customers.filter(p => p.balance < 0).reduce((s,p) => s+Math.abs(p.balance), 0);
-    const supplierToGive = suppliers.filter(p => p.balance < 0).reduce((s,p) => s+Math.abs(p.balance), 0);
-    const supplierToGet  = suppliers.filter(p => p.balance > 0).reduce((s,p) => s+p.balance, 0);
+    const totalToGet  = parties.filter(p => p.balance > 0).reduce((s,p) => s+p.balance, 0);
+    const totalToGive = parties.filter(p => p.balance < 0).reduce((s,p) => s+Math.abs(p.balance), 0);
+    const byType = {};
+    parties.forEach(p => {
+      const t = p.type || 'other';
+      if (!byType[t]) byType[t] = { count: 0, toGet: 0, toGive: 0 };
+      byType[t].count++;
+      if (p.balance > 0) byType[t].toGet += p.balance;
+      else if (p.balance < 0) byType[t].toGive += Math.abs(p.balance);
+    });
 
     const todayIn  = todayTx.filter(t => t.type==='got').reduce((s,t) => s+t.amount, 0);
     const todayOut = todayTx.filter(t => t.type==='gave').reduce((s,t) => s+t.amount, 0);
@@ -40,13 +43,12 @@ const getDashboard = async (req, res) => {
     res.json({
       success: true,
       data: {
-        customers: { count: customers.length, toGet: +customerToGet.toFixed(2), toGive: +customerToGive.toFixed(2) },
-        suppliers: { count: suppliers.length, toGive: +supplierToGive.toFixed(2), toGet: +supplierToGet.toFixed(2) },
+        parties:  { count: parties.length, toGet: +totalToGet.toFixed(2), toGive: +totalToGive.toFixed(2), byType },
         today:    { in: +todayIn.toFixed(2), out: +todayOut.toFixed(2), net: +(todayIn-todayOut).toFixed(2), txCount: todayTx.length },
         thisMonth:{ in: +monthIn.toFixed(2), out: +monthOut.toFixed(2), net: +(monthIn-monthOut).toFixed(2) },
         staff:    { count: staff.length, attendance: attSummary },
         recentTransactions: recentTx,
-        netPosition: +(customerToGet - customerToGive - supplierToGive + supplierToGet).toFixed(2)
+        netPosition: +(totalToGet - totalToGive).toFixed(2)
       }
     });
   } catch (e) { res.status(500).json({ success: false, message: e.message }); }

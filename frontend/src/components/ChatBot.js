@@ -40,10 +40,10 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* Chat panel */}
+      {/* Chat panel — opens below the top-right FAB */}
       {open && (
         <div style={{
-          position:'fixed', bottom:72, right:12, width:330, height:480, maxHeight:'68vh',
+          position:'fixed', top:62, right:12, width:330, height:480, maxHeight:'68vh',
           background:'white', borderRadius:20, boxShadow:'0 8px 40px rgba(26,79,214,.22)',
           display:'flex', flexDirection:'column', zIndex:400,
           border:'1.5px solid var(--border)', overflow:'hidden',
@@ -118,13 +118,13 @@ export default function ChatBot() {
         </div>
       )}
 
-      {/* FAB button */}
+      {/* FAB button — top-right corner */}
       <button
         onClick={()=>setOpen(o=>!o)}
         style={{
-          position:'fixed', bottom:74, right:12, width:50, height:50, borderRadius:'50%',
+          position:'fixed', top:14, right:14, width:40, height:40, borderRadius:'50%',
           background:'linear-gradient(135deg,#1a4fd6,#0e2a8a)', border:'none', color:'white',
-          fontSize:22, cursor:'pointer', boxShadow:'0 4px 20px rgba(26,79,214,.4)',
+          fontSize:18, cursor:'pointer', boxShadow:'0 2px 12px rgba(26,79,214,.35)',
           zIndex:399, display:'flex', alignItems:'center', justifyContent:'center',
           transition:'transform .2s', transform: open?'scale(.9)':'scale(1)',
         }}>

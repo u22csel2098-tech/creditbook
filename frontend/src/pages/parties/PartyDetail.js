@@ -32,15 +32,14 @@ export default function PartyDetail() {
 
   const delParty = async () => {
     setDeleting(true);
-    try { await api.delete(axios, `/api/parties/${id}`); toast.success('Deleted'); navigate(-1); }
+    try { await api.delete(axios, `/api/parties/${id}`); toast.success('Deleted'); navigate('/parties', { replace:true }); }
     catch { toast.error('Failed'); setDeleting(false); }
   };
 
   if (loading) return <div className="spinner"><div className="spin"/></div>;
   if (!party)  return null;
 
-  const isCust = party.type === 'customer';
-  const grad   = isCust ? 'linear-gradient(135deg,#1a4fd6,#0e2a8a)' : 'linear-gradient(135deg,#1a7a46,#0f4a2a)';
+  const grad = 'linear-gradient(135deg,#1a4fd6,#0e2a8a)';
 
   return (
     <div style={{ background:'var(--bg)', minHeight:'100vh', paddingBottom:90 }}>
@@ -96,8 +95,7 @@ export default function PartyDetail() {
         <div className="overlay" onClick={()=>setShowDel(false)}>
           <div className="sheet" onClick={e=>e.stopPropagation()}>
             <h3 style={{ fontWeight:800, marginBottom:6 }}>Delete {party.name}?</h3>
-            <p style={{ color:'var(--text2)', fontSize:14, marginBottom:20 }}>This permanently deletes this {party.type} and all their transactions.</p>
-            <div style={{ display:'flex', gap:10 }}>
+            <p style={{ color:'var(--text2)', fontSize:14, marginBottom:20 }}>This permanently deletes this {party.type} and all their transactions.</p>            <div style={{ display:'flex', gap:10 }}>
               <button className="btn btn-ghost btn-full" onClick={()=>setShowDel(false)}>Cancel</button>
               <button className="btn btn-red btn-full" onClick={delParty} disabled={deleting}>{deleting?'Deleting…':'Delete'}</button>
             </div>

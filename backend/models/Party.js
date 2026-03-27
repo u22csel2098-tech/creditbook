@@ -6,7 +6,7 @@ const partySchema = new mongoose.Schema({
   phone:    { type: String, default: '', trim: true },
   email:    { type: String, default: '', trim: true, lowercase: true },
   address:  { type: String, default: '', trim: true },
-  type:     { type: String, enum: ['customer', 'supplier'], required: true, index: true },
+  type:     { type: String, required: true, index: true, trim: true },
   balance:  { type: Number, default: 0 },
   notes:    { type: String, default: '' },
   isActive: { type: Boolean, default: true }

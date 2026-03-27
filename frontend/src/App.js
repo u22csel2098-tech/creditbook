@@ -42,9 +42,8 @@ export default function App() {
           <Route path="/register" element={<Public><Register /></Public>} />
           <Route path="/" element={<Private><AppLayout /></Private>}>
             <Route index                          element={<Dashboard />} />
-            <Route path="customers"               element={<Parties type="customer" />} />
-            <Route path="suppliers"               element={<Parties type="supplier" />} />
-            <Route path="parties/add/:type"       element={<AddParty />} />
+            <Route path="parties"                 element={<Parties />} />
+            <Route path="parties/add"             element={<AddParty />} />
             <Route path="parties/:id"             element={<PartyDetail />} />
             <Route path="parties/:id/transaction" element={<AddTransaction />} />
             <Route path="staff"                   element={<StaffList />} />

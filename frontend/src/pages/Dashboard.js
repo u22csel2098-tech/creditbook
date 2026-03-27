@@ -54,51 +54,27 @@ export default function Dashboard() {
 
       <div style={{ padding:'14px 14px 0' }}>
 
-        {/* ── CUSTOMERS card ── */}
-        <p className="sec-title">👥 Customers</p>
-        <div className="card card-p" style={{ marginBottom:14, cursor:'pointer' }} onClick={()=>navigate('/customers')}>
+        {/* ── PARTIES card ── */}
+        <p className="sec-title">🤝 Parties</p>
+        <div className="card card-p" style={{ marginBottom:14, cursor:'pointer' }} onClick={()=>navigate('/parties')}>
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12 }}>
             <span style={{ fontSize:15, fontWeight:700, display:'flex', alignItems:'center', gap:7 }}>
-              Customers <span className="badge badge-blue">{d.customers?.count||0}</span>
+              All Parties <span className="badge badge-blue">{d.parties?.count||0}</span>
             </span>
             <span style={{ color:'var(--blue)', fontSize:12, fontWeight:600 }}>View all →</span>
           </div>
           <div style={{ display:'flex' }}>
             <div style={{ flex:1, borderRight:'1px solid var(--border)', paddingRight:14 }}>
               <p style={{ fontSize:11, color:'var(--text3)', marginBottom:3 }}>You will give</p>
-              <p className="give" style={{ fontSize:22 }}>₹{fmt(d.customers?.toGive||0,0)}</p>
+              <p className="give" style={{ fontSize:22 }}>₹{fmt(d.parties?.toGive||0,0)}</p>
             </div>
             <div style={{ flex:1, paddingLeft:14 }}>
               <p style={{ fontSize:11, color:'var(--text3)', marginBottom:3 }}>You will get</p>
-              <p className="get" style={{ fontSize:22 }}>₹{fmt(d.customers?.toGet||0,0)}</p>
+              <p className="get" style={{ fontSize:22 }}>₹{fmt(d.parties?.toGet||0,0)}</p>
             </div>
           </div>
-          <button className="btn btn-primary btn-full" style={{ marginTop:12, padding:'10px', fontSize:13 }} onClick={e=>{e.stopPropagation();navigate('/parties/add/customer');}}>
-            + Add Customer
-          </button>
-        </div>
-
-        {/* ── SUPPLIERS card ── */}
-        <p className="sec-title">🏪 Suppliers</p>
-        <div className="card card-p" style={{ marginBottom:14, cursor:'pointer' }} onClick={()=>navigate('/suppliers')}>
-          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12 }}>
-            <span style={{ fontSize:15, fontWeight:700, display:'flex', alignItems:'center', gap:7 }}>
-              Suppliers <span className="badge badge-green">{d.suppliers?.count||0}</span>
-            </span>
-            <span style={{ color:'var(--blue)', fontSize:12, fontWeight:600 }}>View all →</span>
-          </div>
-          <div style={{ display:'flex' }}>
-            <div style={{ flex:1, borderRight:'1px solid var(--border)', paddingRight:14 }}>
-              <p style={{ fontSize:11, color:'var(--text3)', marginBottom:3 }}>You will give</p>
-              <p className="give" style={{ fontSize:22 }}>₹{fmt(d.suppliers?.toGive||0,0)}</p>
-            </div>
-            <div style={{ flex:1, paddingLeft:14 }}>
-              <p style={{ fontSize:11, color:'var(--text3)', marginBottom:3 }}>You will get</p>
-              <p className="get" style={{ fontSize:22 }}>₹{fmt(d.suppliers?.toGet||0,0)}</p>
-            </div>
-          </div>
-          <button className="btn btn-green btn-full" style={{ marginTop:12, padding:'10px', fontSize:13 }} onClick={e=>{e.stopPropagation();navigate('/parties/add/supplier');}}>
-            + Add Supplier
+          <button className="btn btn-primary btn-full" style={{ marginTop:12, padding:'10px', fontSize:13 }} onClick={e=>{e.stopPropagation();navigate('/parties/add');}}>
+            + Add Party
           </button>
         </div>
 
